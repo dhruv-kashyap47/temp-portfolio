@@ -132,6 +132,12 @@ em {
   transition: width 0.1s linear;
 }
 
+/* Utility toggled by JS while GSAP animates transform/opacity, so CSS
+   hover transitions don't chase GSAP's per-frame writes mid-reveal. */
+.no-trans {
+  transition: none !important;
+}
+
 /* ─── Noise overlay ──────────────────────────────────────────────────── */
 .noise {
   pointer-events: none;
@@ -205,6 +211,14 @@ em {
 .cursor.is-hover .cursor__label { opacity: 1; }
 .cursor.is-hover .cursor__dot   { opacity: 0; }
 body.touch .cursor               { display: none; }
+
+/* CSS-only guard so the custom cursor can never linger on devices
+   with no hover-capable pointer (covers hybrid/JS edge cases). */
+@media (hover: none), (pointer: coarse) {
+  body     { cursor: auto; }
+  button   { cursor: pointer; }
+  .cursor  { display: none !important; }
+}
 
 /* ─── Loader ─────────────────────────────────────────────────────────── */
 .loader {
@@ -467,7 +481,7 @@ body.is-menu .nav__burger i:last-child {
   gap: 1.25rem;
   font-family:    var(--font-display);
   font-weight:    800;
-  font-size:      clamp(2.6rem, 7.5vw, 6rem);
+  font-size:      clamp(2.2rem, 6vw, 4.6rem);
   line-height:    0.95;
   letter-spacing: -0.04em;
   border-bottom:  1px solid var(--line);
@@ -608,7 +622,7 @@ body.is-menu .nav__burger i:last-child {
 .hero__name {
   font-family:    var(--font-display);
   font-weight:    800;
-  font-size:      clamp(3.5rem, 14.5vw, 11rem);
+  font-size:      clamp(3rem, 11vw, 8.25rem);
   line-height:    0.82;
   letter-spacing: -0.055em;
   text-transform: uppercase;
@@ -649,7 +663,7 @@ html.js .reveal {
 }
 
 .hero__lede {
-  font-size:   clamp(1.15rem, 2.2vw, 1.85rem);
+  font-size:   clamp(1.05rem, 1.8vw, 1.45rem);
   line-height: 1.25;
   font-weight: 400;
   max-width:   15ch;
@@ -731,6 +745,7 @@ html.js .reveal {
   color: var(--copper-2);
   transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   animation: corePulse 2.5s ease-in-out infinite alternate;
 }
 
@@ -759,7 +774,7 @@ html.js .reveal {
 
 .hero__stats strong {
   font-family:    var(--font-display);
-  font-size:      clamp(1.4rem, 2.5vw, 2.1rem);
+  font-size:      clamp(1.25rem, 2vw, 1.65rem);
   font-weight:    700;
   letter-spacing: -0.04em;
   color:          var(--copper-2);
@@ -1049,7 +1064,7 @@ section {
 .work__title {
   font-family:    var(--font-display);
   font-weight:    700;
-  font-size:      clamp(2rem, 4vw, 3.8rem);
+  font-size:      clamp(1.8rem, 3.3vw, 3rem);
   line-height:    1.05;
   letter-spacing: -0.04em;
   max-width:      13ch;
@@ -1110,8 +1125,12 @@ section {
 
 .work-item:last-child { border-bottom: 1px solid var(--line); }
 
-.work-item:hover {
-  transform: translateX(8px);
+/* Hover-only displacement: gated so a tap on touch devices can't
+   latch the row in its shifted state. */
+@media (hover: hover) {
+  .work-item:hover {
+    transform: translateX(8px);
+  }
 }
 
 .work-item:hover::before {
@@ -1147,10 +1166,10 @@ section {
 
 .work-item__main h3 {
   font-family:    var(--font-display);
-  font-size:      clamp(2rem, 4.5vw, 4.2rem);
+  font-size:      clamp(1.7rem, 3.5vw, 3.1rem);
   font-weight:    800;
   letter-spacing: 0;
-  line-height:    0.86;
+  line-height:    0.92;
   margin-bottom:  0.65rem;
   text-transform: uppercase;
   color:          var(--ink);
@@ -1168,7 +1187,7 @@ section {
 .work-item__main p {
   color:       #d7cbb9;
   font-family: var(--font-serif);
-  font-size:   clamp(1.2rem, 1.75vw, 1.65rem);
+  font-size:   clamp(1.05rem, 1.4vw, 1.3rem);
   line-height: 1.28;
   max-width:   44ch;
   text-wrap:   pretty;
@@ -1251,6 +1270,7 @@ section {
     opacity    0.4s var(--ease),
     transform  0.4s var(--ease);
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .work-follower.is-on {
@@ -1375,9 +1395,11 @@ section {
   transition: color 0.3s ease, padding-left 0.3s var(--ease);
 }
 
-.exp__right li:hover {
-  color: var(--ink);
-  padding-left: 1.6rem;
+@media (hover: hover) {
+  .exp__right li:hover {
+    color: var(--ink);
+    padding-left: 1.6rem;
+  }
 }
 
 .exp__right li::before {
@@ -1418,7 +1440,9 @@ section {
   transition: width 1.5s var(--ease);
 }
 
-.metric:hover::after { width: 80%; }
+@media (hover: hover) {
+  .metric:hover::after { width: 80%; }
+}
 
 .metric__num {
   display: block;
@@ -1466,8 +1490,10 @@ section {
   transition: opacity 0.4s ease;
 }
 
-.stack__grid article:hover { transform: translateZ(4px); }
-.stack__grid article:hover::before { opacity: 1; }
+@media (hover: hover) {
+  .stack__grid article:hover { transform: translateZ(4px); }
+  .stack__grid article:hover::before { opacity: 1; }
+}
 
 .stack__grid article:nth-child(3n) {
   border-right: 0;
@@ -1502,7 +1528,9 @@ section {
 
 .recog li:last-child { border-bottom: 1px solid var(--line-paper); }
 
-.recog li:hover { transform: translateX(8px); }
+@media (hover: hover) {
+  .recog li:hover { transform: translateX(8px); }
+}
 
 .recog__year {
   font-family:    var(--font-mono);
@@ -1691,8 +1719,8 @@ section {
   }
 
   .work-item__main h3 {
-    font-size: clamp(2.2rem, 7vw, 3.8rem);
-    line-height: 0.9;
+    font-size: clamp(1.9rem, 6vw, 3.05rem);
+    line-height: 0.95;
   }
 
   .work-item__main p {
@@ -1719,7 +1747,7 @@ section {
   }
 
   .menu__list a {
-    font-size: clamp(2.35rem, 13vw, 4.8rem);
+    font-size: clamp(2rem, 10.5vw, 3.8rem);
   }
 
   .menu__foot {
@@ -1787,12 +1815,12 @@ section {
   .work-item__go { grid-column: 1; }
 
   .work-item__main h3 {
-    font-size: clamp(2.05rem, 13vw, 3.4rem);
+    font-size: clamp(1.75rem, 10.5vw, 2.8rem);
   }
 
   .work-item__main p {
-    font-size: clamp(1.08rem, 5vw, 1.32rem);
-    line-height: 1.32;
+    font-size: clamp(0.98rem, 4.4vw, 1.18rem);
+    line-height: 1.35;
   }
 
   .work-item:hover {
@@ -1852,8 +1880,9 @@ section {
   }
 
   .hero__name {
-    font-size: clamp(3.2rem, 20vw, 5.8rem);
-    line-height: 0.88;
+    font-size: clamp(2.5rem, 12.5vw, 3.4rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
     max-width: 100%;
   }
 
@@ -1906,12 +1935,12 @@ section {
   }
 
   .work-item__main h3 {
-    font-size: clamp(1.95rem, 12vw, 3rem);
-    line-height: 0.95;
+    font-size: clamp(1.65rem, 9.5vw, 2.45rem);
+    line-height: 0.98;
   }
 
   .work-item__main p {
-    font-size: clamp(1.02rem, 4.8vw, 1.2rem);
+    font-size: clamp(0.95rem, 4.2vw, 1.08rem);
   }
 
   .work-item__meta {
@@ -1959,18 +1988,13 @@ section {
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .reveal { transform: none; }
-  .loader { display: none; }
-  .nav    { opacity: 1; }
-}
+/* This site intentionally forces its motion design everywhere
+   (see `reduce = false` in js/app.js). A blanket
+   `animation: none !important` here used to freeze the ticker,
+   spin-cta, scanline and pulse dots for users whose OS reports
+   prefers-reduced-motion (e.g. Windows "Animation effects" off),
+   while JS kept animating — an inconsistent half-state. No-JS
+   visitors are covered by the <noscript> block in index.html. */
 
 /* ─── Mobile Responsiveness (max-width: 768px) ──────────────────────── */
 @media (max-width: 768px) {

@@ -27,7 +27,7 @@
       return;
     }
     const start = performance.now();
-    const duration = 1800;
+    const duration = 1150;
     const tick = (now) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
@@ -38,8 +38,8 @@
         requestAnimationFrame(tick);
       } else {
         loader.classList.add("is-done");
-        setTimeout(ready, 200);
-        setTimeout(() => loader.remove(), 1200);
+        setTimeout(ready, 80);
+        setTimeout(() => loader.remove(), 1100);
       }
     };
     requestAnimationFrame(tick);
@@ -133,6 +133,9 @@
   };
 
   /* ─── Magnetic hover ─────────────────────────────────────────── */
+  /* NOTE: .spin-cta also has a CSS :hover scale(1.08). An inline
+     magnetic transform would override that CSS rule, so the scale is
+     composed into the inline transform here instead. */
   const initMagnetic = () => {
     if (touch || reduce) return;
     document.querySelectorAll(".magnetic").forEach((el) => {
@@ -140,8 +143,9 @@
         const r = el.getBoundingClientRect();
         const dx = e.clientX - (r.left + r.width / 2);
         const dy = e.clientY - (r.top + r.height / 2);
+        const scale = el.classList.contains("spin-cta") ? " scale(1.08)" : "";
         el.style.transition = "transform 0.08s linear";
-        el.style.transform = `translate(${dx * 0.3}px, ${dy * 0.3}px)`;
+        el.style.transform = `translate(${dx * 0.3}px, ${dy * 0.3}px)${scale}`;
       });
       el.addEventListener("mouseleave", () => {
         el.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
@@ -200,7 +204,13 @@
     };
 
     resize();
-    spawn(90);
+    /* Fewer embers on small viewports so mobile keeps the same feel
+       without paying desktop particle counts. */
+    const count = Math.max(
+      30,
+      Math.min(90, Math.round((canvas.offsetWidth * canvas.offsetHeight) / 22000)),
+    );
+    spawn(count);
     step();
     window.addEventListener("resize", resize);
   };
@@ -308,27 +318,54 @@
   /* ─── Agents pipeline hover animation ────────────────────────── */
   const initAgentsPipeline = () => {
     const items = document.querySelectorAll(".agents__row li");
-    if (!items.length) return;
+    const stage = document.querySelector(".agents");
+    if (!items.length || !stage) return;
 
-    items.forEach((li, i) => {
-      li.style.setProperty("--delay", `${i * 0.1}s`);
-
-      li.addEventListener("mouseenter", () => {
-        // Ripple to adjacent nodes
-        items.forEach((other, j) => {
-          const dist = Math.abs(j - i);
-          other.classList.toggle("agent--active", dist === 0);
-          other.classList.toggle("agent--near", dist === 1);
-          other.classList.toggle("agent--far", dist === 2);
-        });
+    const activate = (i) => {
+      items.forEach((other, j) => {
+        const dist = Math.abs(j - i);
+        other.classList.toggle("agent--active", dist === 0);
+        other.classList.toggle("agent--near", dist === 1);
+        other.classList.toggle("agent--far", dist === 2);
       });
+    };
 
-      li.addEventListener("mouseleave", () => {
-        items.forEach((other) => {
-          other.classList.remove("agent--active", "agent--near", "agent--far");
-        });
+    const clear = () => {
+      items.forEach((other) => {
+        other.classList.remove("agent--active", "agent--near", "agent--far");
       });
-    });
+    };
+
+    /* Desktop: ripple follows the pointer across the pipeline. */
+    if (!touch) {
+      items.forEach((li, i) => {
+        li.style.setProperty("--delay", `${i * 0.1}s`);
+        li.addEventListener("mouseenter", () => activate(i));
+        li.addEventListener("mouseleave", clear);
+      });
+      return;
+    }
+
+    /* Touch parity: no hover exists on mobile, so the same ripple
+       auto-plays while the section is on screen. */
+    if (!("IntersectionObserver" in window)) return;
+    let idx = 0;
+    let timer = null;
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timer = setInterval(() => {
+            activate(idx);
+            idx = (idx + 1) % items.length;
+          }, 1400);
+        } else {
+          clearInterval(timer);
+          timer = null;
+          clear();
+        }
+      },
+      { threshold: 0.3 },
+    ).observe(stage);
   };
 
   /* ─── Typing effect for hero kicker ──────────────────────────── */
@@ -355,34 +392,22 @@
     });
   };
 
-  /* ─── Section reveal with IntersectionObserver ───────────────── */
-  const initReveal = () => {
-    if (reduce) return;
-    const els = document.querySelectorAll(".reveal-up, .stagger-parent > *");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("is-visible"));
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
-    );
-
-    els.forEach((el) => io.observe(el));
-  };
+  /* ─── Section reveals ─────────────────────────────────────────
+     Handled entirely by the ScrollTrigger tweens in initMotion().
+     (An older IntersectionObserver pass here targeted .reveal-up /
+     .stagger-parent selectors that don't exist, and set transition
+     delays that fought GSAP's per-frame updates — removed.) */
 
   /* ─── Stack grid card hover tilt ─────────────────────────────── */
   const initStackTilt = () => {
     if (touch || reduce) return;
     document.querySelectorAll(".stack__grid article").forEach((card) => {
+      /* CSS gives these cards `transition: transform .35s`; if left
+         active it chases every mousemove frame and makes the tilt feel
+         rubber-banded, so transitions are suspended while tilting. */
+      card.addEventListener("mouseenter", () => {
+        card.style.transition = "none";
+      });
       card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
         const nx = ((e.clientX - r.left) / r.width - 0.5) * 8;
@@ -390,37 +415,13 @@
         card.style.transform = `perspective(600px) rotateY(${nx}deg) rotateX(${-ny}deg) translateZ(4px)`;
       });
       card.addEventListener("mouseleave", () => {
+        card.style.transition = "";
         card.style.transform = "";
       });
     });
   };
 
-  /* ─── Recognition list stagger ───────────────────────────────── */
-  const initRecogReveal = () => {
-    if (reduce) return;
-    const items = document.querySelectorAll(".recog li");
-    if (!("IntersectionObserver" in window)) {
-      items.forEach((li) => li.classList.add("is-visible"));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 },
-    );
-    items.forEach((li, i) => {
-      li.style.transitionDelay = `${i * 0.1}s`;
-      io.observe(li);
-    });
-  };
-
-  /* ─── Horizontal scroll snapping ticker direction toggle ─────── */
+  /* ─── Ticker pause on hover (desktop nicety) ─────────────────── */
   const initTickerPause = () => {
     const ticker = document.querySelector(".ticker__track");
     if (!ticker) return;
@@ -464,6 +465,22 @@
     }
 
     if (hasGsap && !reduce) {
+      /* Several elements carry CSS `transition: transform/opacity` for
+         their hover states. Left active, those transitions chase every
+         GSAP frame during scroll reveals and make entrances feel
+         laggy. This wrapper suspends them for the duration of the
+         tween, then hands control back to CSS. */
+      const fromNoTrans = (targets, vars) => {
+        const els = gsap.utils.toArray(targets);
+        if (!els.length) return;
+        els.forEach((el) => el.classList.add("no-trans"));
+        gsap.from(els, {
+          ...vars,
+          onComplete: () =>
+            els.forEach((el) => el.classList.remove("no-trans")),
+        });
+      };
+
       /* Hero text reveal */
       gsap.to(".hero .reveal", {
         y: "0%",
@@ -473,7 +490,7 @@
         delay: 0.05,
       });
 
-      gsap.from(".hero__lede, .spin-cta, .hero__stats, .hero__kicker", {
+      fromNoTrans(".hero__lede, .spin-cta, .hero__stats, .hero__kicker", {
         y: 32,
         opacity: 0,
         duration: 1.1,
@@ -525,7 +542,7 @@
         });
 
         /* Agents pipeline */
-        gsap.from(".agents__row li", {
+        fromNoTrans(".agents__row li", {
           y: 20,
           opacity: 0,
           duration: 0.75,
@@ -544,12 +561,16 @@
         });
 
         gsap.utils.toArray(".work-item").forEach((item, i) => {
+          item.classList.add("no-trans");
           gsap.from(item, {
             y: 30,
             opacity: 0,
             duration: 0.9,
             delay: i * 0.05,
             ease: "power3.out",
+            /* Tween-level onComplete (not scrollTrigger-level) so the
+               .no-trans lock is always released once the reveal ends. */
+            onComplete: () => item.classList.remove("no-trans"),
             scrollTrigger: { trigger: item, start: "top 90%" },
           });
         });
@@ -584,7 +605,7 @@
         });
 
         /* Stack grid */
-        gsap.from(".stack__grid article", {
+        fromNoTrans(".stack__grid article", {
           y: 24,
           opacity: 0,
           duration: 0.75,
@@ -594,7 +615,7 @@
         });
 
         /* Recognition */
-        gsap.from(".recog li", {
+        fromNoTrans(".recog li", {
           x: -24,
           opacity: 0,
           duration: 0.8,
@@ -641,17 +662,6 @@
             scrollTrigger: { trigger: sh, start: "top 88%" },
           });
         });
-
-        /* Horizontal line reveals */
-        gsap.utils.toArray(".metrics, .hero__stats").forEach((el) => {
-          gsap.from(el, {
-            scaleX: 0,
-            transformOrigin: "left",
-            duration: 0.001,
-            ease: "none",
-            scrollTrigger: { trigger: el, start: "top 85%" },
-          });
-        });
       }
     } else {
       /* Reduced motion fallback */
@@ -679,9 +689,7 @@
     initCountUp();
     initAgentsPipeline();
     initTypingEffect();
-    initReveal();
     initStackTilt();
-    initRecogReveal();
     initScrollProgress();
     initAmbientGlow();
     initTickerPause();
@@ -699,7 +707,14 @@
     booted = true;
     runLoader();
   };
+  /* Start counting as soon as the DOM is parsed. Waiting for the
+     full window load event (fonts + CDN + everything) delayed the
+     hero reveal by seconds on slow connections. The timeout stays
+     as a safety net for stalled assets. */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
   setTimeout(boot, 3200);
-  if (document.readyState === "complete") boot();
-  else window.addEventListener("load", boot);
 })();
