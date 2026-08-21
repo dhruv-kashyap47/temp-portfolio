@@ -329,7 +329,16 @@ body.touch .cursor               { display: none; }
 
 .nav.is-on {
   opacity: 1;
-  transition: opacity 0.6s ease 0.2s;
+  transition:
+    opacity 0.6s ease 0.2s,
+    transform 0.55s var(--ease);
+}
+
+.nav.is-on.nav--hidden {
+  transform: translateY(-105%);
+  transition:
+    transform 0.5s var(--ease),
+    opacity 0.3s ease;
 }
 
 .nav.is-on::after {
@@ -426,6 +435,10 @@ body.touch .cursor               { display: none; }
 body.is-menu .nav {
   mix-blend-mode: normal;
   color: var(--ink);
+  /* The fullscreen menu lives under the navbar, so it must stay
+     visible even if the user opened it mid-scroll. */
+  transform: none !important;
+  opacity: 1;
 }
 
 body.is-menu .nav__burger i:first-child {
@@ -540,6 +553,7 @@ body.is-menu .nav__burger i:last-child {
 /* ─── Hero ───────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
+  min-height: 100vh; /* fallback: pre-2022 Safari / older Firefox */
   min-height: 100svh;
   padding: calc(var(--nav-h) + 1.5rem) var(--pad) 1.75rem;
   display: flex;
@@ -1559,6 +1573,7 @@ section {
 
 /* ─── Contact ────────────────────────────────────────────────────────── */
 .contact {
+  min-height: 80vh; /* fallback: pre-2022 Safari / older Firefox */
   min-height: 80svh;
   display: flex;
   flex-direction: column;

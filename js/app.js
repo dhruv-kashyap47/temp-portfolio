@@ -74,6 +74,7 @@
     const setOpen = (open) => {
       document.body.classList.toggle("is-menu", open);
       menu.classList.toggle("is-open", open);
+      if (open) nav.classList.remove("nav--hidden");
       menu.setAttribute("aria-hidden", open ? "false" : "true");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
       menuBtn.querySelector("span").textContent = open ? "Close" : "Menu";
@@ -90,6 +91,31 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") setOpen(false);
     });
+  };
+
+  /* ─── Navbar hides on scroll down, returns on scroll up ──────── */
+  const initNavHide = () => {
+    const THRESHOLD = 120;
+    let last = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      if (!document.body.classList.contains("is-menu")) {
+        nav.classList.toggle("nav--hidden", y > last && y > THRESHOLD);
+      }
+      last = y;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
   };
 
   /* ─── Custom cursor ──────────────────────────────────────────── */
@@ -700,6 +726,7 @@
   initMenu();
   initCursor();
   initMagnetic();
+  initNavHide();
 
   let booted = false;
   const boot = () => {
