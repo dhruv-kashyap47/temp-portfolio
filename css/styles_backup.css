@@ -472,24 +472,10 @@ body.is-menu .nav__burger i:last-child {
   letter-spacing: -0.04em;
   border-bottom:  1px solid var(--line);
   padding: 0.15em 0;
-  transition: color 0.35s var(--ease), padding-left 0.48s var(--ease), transform 0.6s var(--ease), opacity 0.6s var(--ease);
+  transition: color 0.35s var(--ease), padding-left 0.48s var(--ease);
   position: relative;
   overflow: hidden;
-  transform: translateY(24px);
-  opacity: 0;
 }
-
-.menu.is-open .menu__list a {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.menu.is-open li:nth-child(1) a { transition-delay: 0.1s; }
-.menu.is-open li:nth-child(2) a { transition-delay: 0.15s; }
-.menu.is-open li:nth-child(3) a { transition-delay: 0.2s; }
-.menu.is-open li:nth-child(4) a { transition-delay: 0.25s; }
-.menu.is-open li:nth-child(5) a { transition-delay: 0.3s; }
-.menu.is-open li:nth-child(6) a { transition-delay: 0.35s; }
 
 .menu__list a::before {
   content: attr(data-index);
@@ -714,11 +700,6 @@ html.js .reveal {
 
 .spin-cta:hover text { fill: var(--ink); }
 
-@keyframes corePulse {
-  0%   { box-shadow: 0 0 0px rgba(197, 106, 50, 0); }
-  100% { box-shadow: 0 0 12px rgba(197, 106, 50, 0.15); }
-}
-
 .spin-cta__core {
   width: 58px;
   height: 58px;
@@ -731,7 +712,6 @@ html.js .reveal {
   color: var(--copper-2);
   transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
   backdrop-filter: blur(6px);
-  animation: corePulse 2.5s ease-in-out infinite alternate;
 }
 
 .spin-cta:hover .spin-cta__core {
@@ -1009,13 +989,12 @@ section {
   font-size:      0.62rem;
   color:          var(--copper);
   letter-spacing: 0.14em;
-  transition: color 0.3s ease, transform 0.35s var(--ease);
+  transition: color 0.3s ease;
 }
 
 .agents__row li.agent--active span {
   color: var(--copper-2);
   text-shadow: 0 0 12px rgba(197, 106, 50, 0.5);
-  transform: translateX(3px);
 }
 
 .agents__row strong {
@@ -1221,16 +1200,13 @@ section {
   text-transform: uppercase;
   white-space:    nowrap;
   color:          var(--muted);
-  transition:     color 0.35s ease, transform 0.35s var(--ease);
+  transition:     color 0.35s ease;
   justify-self: end;
   position: relative;
   z-index: 2;
 }
 
-.work-item:hover .work-item__go { 
-  color: var(--copper-2); 
-  transform: translate(3px, -3px);
-}
+.work-item:hover .work-item__go { color: var(--copper-2); }
 
 .work-item__thumb { display: none; }
 
@@ -1270,15 +1246,9 @@ section {
 .art.is-active,
 .work-item__thumb.art { opacity: 1; }
 
-@keyframes floatSvg {
-  0%   { transform: translateY(0px); }
-  100% { transform: translateY(-3px); }
-}
-
 .art svg {
   width:  90%;
   height: 75%;
-  animation: floatSvg 3s ease-in-out infinite alternate;
 }
 
 .art span {
@@ -1970,99 +1940,4 @@ section {
   .reveal { transform: none; }
   .loader { display: none; }
   .nav    { opacity: 1; }
-}
-
-/* ─── Mobile Responsiveness (max-width: 768px) ──────────────────────── */
-@media (max-width: 768px) {
-  /* 1. Navigation */
-  .nav {
-    grid-template-columns: 1fr auto;
-  }
-  .nav__center {
-    display: none;
-  }
-
-  /* 2. Hero Section */
-  .hero__console {
-    grid-template-columns: 1fr;
-  }
-  .hero__stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* 3. About Section */
-  .about__grid {
-    grid-template-columns: 1fr;
-  }
-  .agents__row {
-    grid-template-columns: 1fr;
-  }
-  .agents__row::before {
-    display: none;
-  }
-  .agents__row li {
-    border-right: none;
-    border-bottom: 1px solid var(--line-paper);
-    padding: 1.25rem 0;
-  }
-  .agents__row li:last-child {
-    border-bottom: none;
-  }
-
-  /* 4. Work Section */
-  .work__intro {
-    grid-template-columns: 1fr;
-  }
-  .work-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.75rem 0;
-  }
-  .work-item__index {
-    padding-top: 0;
-  }
-  .work-item__meta {
-    border-left: none;
-    padding-left: 0;
-    border-top: 1px solid var(--line);
-    padding-top: 1rem;
-    width: 100%;
-  }
-  .work-item__go {
-    margin-top: 0.5rem;
-  }
-
-  /* 5. Experience Section */
-  .exp {
-    grid-template-columns: 1fr;
-  }
-  .metrics {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* 6. Capabilities Stack */
-  .stack__grid {
-    grid-template-columns: 1fr;
-  }
-  .stack__grid article {
-    border-right: none;
-    padding-right: 0;
-  }
-
-  /* 7. Recognition */
-  .recog li {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  .recog__year {
-    padding-top: 0;
-  }
-
-  /* 8. Footer Adjustments */
-  .footer {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
 }
