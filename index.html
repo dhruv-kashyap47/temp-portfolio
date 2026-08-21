@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dhruv Kashyap | AI/ML Engineer</title>
+    <meta
+      name="description"
+      content="Dhruv Kashyap is an AI/ML and backend engineer building agentic systems, RAG pipelines, and enterprise platforms. B.Tech CSE 2026. Jamshedpur."
+    />
+    <meta property="og:title" content="Dhruv Kashyap | AI/ML Engineer" />
+    <meta
+      property="og:description"
+      content="Agentic systems for the physical world. GenAI, RAG, and enterprise backends."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="screenshots/desktop-hero.png" />
+    <meta name="theme-color" content="#090908" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23090908'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='22' fill='%23C56A32'%3EDK%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <noscript>
+      <style>
+        .loader { display: none !important; }
+        .nav { opacity: 1 !important; }
+        .reveal { transform: none !important; }
+        body { cursor: auto; }
+        .cursor { display: none; }
+        .scroll-progress { display: none; }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Custom cursor -->
+    <div class="cursor" aria-hidden="true">
+      <div class="cursor__ring"></div>
+      <div class="cursor__dot"></div>
+      <span class="cursor__label"></span>
+    </div>
+
+    <!-- Film grain noise overlay -->
+    <div class="noise" aria-hidden="true"></div>
+
+    <!-- Page loader -->
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader__bar" aria-hidden="true">
+        <span class="loader__mark">DK</span>
+        <span class="loader__word">Forging</span>
+      </div>
+      <div class="loader__count" id="loaderCount">00</div>
+      <div class="loader__track">
+        <div class="loader__fill" id="loaderFill"></div>
+      </div>
+      <p class="loader__meta">Dhruv Kashyap · Portfolio 2026</p>
+    </div>
+
+    <!-- Navigation -->
+    <header class="nav" id="nav">
+      <a class="nav__logo magnetic" href="#top" data-cursor="index">DK</a>
+      <div class="nav__center">
+        <span class="nav__status"><i></i> Available for full-time</span>
+        <span class="nav__place" id="clock">Jamshedpur / 00:00:00 IST</span>
+      </div>
+      <button class="nav__menu magnetic" id="menuBtn" aria-expanded="false" aria-controls="menu" type="button">
+        <span>Menu</span>
+        <span class="nav__burger" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </header>
+
+    <!-- Fullscreen menu overlay -->
+    <nav class="menu" id="menu" aria-hidden="true">
+      <div class="menu__inner">
+        <p class="menu__kicker">Index</p>
+        <ul class="menu__list">
+          <li><a href="#about"       data-index="01">About</a></li>
+          <li><a href="#work"        data-index="02">Work</a></li>
+          <li><a href="#experience"  data-index="03">Experience</a></li>
+          <li><a href="#stack"       data-index="04">Capabilities</a></li>
+          <li><a href="#recognition" data-index="05">Recognition</a></li>
+          <li><a href="#contact"     data-index="06">Contact</a></li>
+        </ul>
+        <div class="menu__foot">
+          <a href="https://github.com/dhruv-kashyap47/"            target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/realdhruvkashyap/"  target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:7468dhruv@gmail.com">Email</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+
+      <!-- ── Hero ──────────────────────────────────────────────── -->
+      <section class="hero" id="top">
+        <canvas class="hero__canvas" id="emberCanvas" aria-hidden="true"></canvas>
+        <div class="hero__scan"    aria-hidden="true"></div>
+        <div class="hero__ambient" aria-hidden="true"></div>
+
+        <div class="hero__top">
+          <p class="hero__kicker">
+            <span>AI / ML Engineer</span>
+            <span class="dot"></span>
+            <span>GenAI &amp; Agentic Systems</span>
+            <span class="dot"></span>
+            <span>B.Tech CSE '26</span>
+          </p>
+        </div>
+
+        <h1 class="hero__name">
+          <span class="reveal-wrap"><span class="reveal">Dhruv</span></span>
+          <span class="reveal-wrap">
+            <span class="reveal hero__italic">Kashyap</span>
+          </span>
+        </h1>
+
+        <div class="hero__bottom">
+          <p class="hero__lede">
+            I build agentic systems<br />
+            for the <em>physical world.</em>
+          </p>
+
+          <a class="spin-cta magnetic" href="#work" data-cursor="work" aria-label="View selected work">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <defs>
+                <path id="ctaPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+              </defs>
+              <text>
+                <textPath href="#ctaPath">Selected Work / Enter Archive /</textPath>
+              </text>
+            </svg>
+            <span class="spin-cta__core">↓</span>
+          </a>
+        </div>
+
+        <div class="hero__console" aria-label="Live system proof">
+          <span>trace://camtrace-360</span>
+          <span>17 tables / 27 procedures / 159+ tests</span>
+          <span>agent graph: planner -> rag -> rul -> hitl -> report</span>
+        </div>
+
+        <ul class="hero__stats">
+          <li>
+            <strong>05</strong>
+            <span>LangGraph agents in production pipeline</span>
+          </li>
+          <li>
+            <strong>159+</strong>
+            <span>Automated tests on an enterprise platform</span>
+          </li>
+          <li>
+            <strong>Top 40</strong>
+            <span>Tata Steel AI Hackathon, nationally</span>
+          </li>
+          <li>
+            <strong>OCI</strong>
+            <span>Cloud Infrastructure AI certified</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── Tech ticker ────────────────────────────────────────── -->
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>LangGraph</span><i></i>
+          <span>RAG Pipelines</span><i></i>
+          <span>FastAPI</span><i></i>
+          <span>PostgreSQL</span><i></i>
+          <span>LangChain</span><i></i>
+          <span>XGBoost</span><i></i>
+          <span>Next.js</span><i></i>
+          <span>Oracle 19c</span><i></i>
+          <span>Multi-Agent</span><i></i>
+          <span>Redis</span><i></i>
+          <span>Docker</span><i></i>
+          <span>pgvector</span><i></i>
+          <span>TypeScript</span><i></i>
+          <span>AWS</span><i></i>
+          <span>PySpark</span><i></i>
+          <span>Snowflake</span><i></i>
+          <span>LangGraph</span><i></i>
+          <span>RAG Pipelines</span><i></i>
+          <span>FastAPI</span><i></i>
+          <span>PostgreSQL</span><i></i>
+          <span>LangChain</span><i></i>
+          <span>XGBoost</span><i></i>
+          <span>Next.js</span><i></i>
+          <span>Oracle 19c</span><i></i>
+          <span>Multi-Agent</span><i></i>
+          <span>Redis</span><i></i>
+          <span>Docker</span><i></i>
+          <span>pgvector</span><i></i>
+          <span>TypeScript</span><i></i>
+          <span>AWS</span><i></i>
+          <span>PySpark</span><i></i>
+          <span>Snowflake</span><i></i>
+        </div>
+      </div>
+
+      <!-- ── About ──────────────────────────────────────────────── -->
+      <section class="about paper" id="about">
+        <div class="section-head">
+          <p class="idx">01 / About</p>
+          <p class="section-head__right">Jamshedpur, India</p>
+        </div>
+
+        <div class="about__grid">
+          <h2 class="about__title">
+            I don't ship demos.<br />
+            I ship <em>systems</em> that survive the shop floor.
+          </h2>
+
+          <div class="about__copy">
+            <p>
+              AI/ML and backend engineer specializing in scalable APIs, RAG, and multi-agent architectures. The work lives where software meets steel: inspection workflows, maintenance intelligence, and models a real engineer can argue with.
+            </p>
+            <p>
+              Recently prototyped <strong>CamTrace 360</strong> at Tata Cummins: a 17-table Oracle platform with 27 stored procedures and 159+ tests. In parallel, architected <strong>MAN OF STEEL</strong>, a five-node LangGraph maintenance platform that placed in the national top 40 of the Tata Steel AI Hackathon.
+            </p>
+            <p class="about__edu">
+              B.Tech Computer Science Engineering, 2022–2026<br />
+              ITER, Siksha 'O' Anusandhan University, Bhubaneswar
+            </p>
+            <div class="about__links">
+              <a class="text-link" href="assets/dhruv_kashyap_cv.pdf" download>Download CV</a>
+              <a class="text-link" href="https://github.com/dhruv-kashyap47/"           target="_blank" rel="noopener">GitHub</a>
+              <a class="text-link" href="https://www.linkedin.com/in/realdhruvkashyap/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Five-node LangGraph pipeline diagram -->
+        <div class="agents" aria-label="Five-node LangGraph pipeline">
+          <p class="agents__label">Signature architecture / 5-node LangGraph</p>
+          <ol class="agents__row">
+            <li>
+              <span>01</span>
+              <strong>Planner</strong>
+              <em>Intent</em>
+            </li>
+            <li>
+              <span>02</span>
+              <strong>Knowledge</strong>
+              <em>RAG</em>
+            </li>
+            <li>
+              <span>03</span>
+              <strong>Prediction</strong>
+              <em>ML / RUL</em>
+            </li>
+            <li>
+              <span>04</span>
+              <strong>Experience</strong>
+              <em>HITL</em>
+            </li>
+            <li>
+              <span>05</span>
+              <strong>Decision</strong>
+              <em>Report</em>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ── Selected Work ──────────────────────────────────────── -->
+      <section class="work" id="work">
+        <div class="section-head">
+          <p class="idx">02 / Selected Work</p>
+          <p class="section-head__right">04 projects</p>
+        </div>
+
+        <div class="work__intro">
+          <h2 class="work__title">
+            Dhruv Kashyap<br />
+            <em>Selected systems.</em>
+          </h2>
+          <p>
+            A compact archive of production-minded builds: industrial agents that reason over manuals, document intelligence that retrieves before it answers, fraud models tuned for rare events, and data platforms shaped for real analysis.
+          </p>
+        </div>
+
+        <!-- Floating image follower (desktop) -->
+        <div class="work-follower" id="workFollower" aria-hidden="true">
+          <div class="art art--steel" data-art="steel">
+            <svg viewBox="0 0 480 320" fill="none">
+              <circle cx="80"  cy="160" r="18" stroke="#e3924e" stroke-width="1.2" />
+              <circle cx="160" cy="90"  r="18" stroke="#e8e0d2" stroke-width="1.2" />
+              <circle cx="240" cy="200" r="18" stroke="#e3924e" stroke-width="1.2" />
+              <circle cx="320" cy="110" r="18" stroke="#e8e0d2" stroke-width="1.2" />
+              <circle cx="400" cy="170" r="18" stroke="#c56a32" stroke-width="1.5" />
+              <path d="M98 160 L142 98 M178 98 L222 188 M258 196 L302 122 M338 118 L382 162" stroke="#c56a32" stroke-width="1" opacity=".7" />
+              <circle cx="80"  cy="160" r="4" fill="#c56a32" />
+              <circle cx="160" cy="90"  r="4" fill="#e8e0d2" />
+              <circle cx="240" cy="200" r="4" fill="#c56a32" />
+              <circle cx="320" cy="110" r="4" fill="#e8e0d2" />
+              <circle cx="400" cy="170" r="4" fill="#e3924e" />
+            </svg>
+            <span>Five agents. One diagnosis.</span>
+          </div>
+          <div class="art art--rag" data-art="rag">
+            <svg viewBox="0 0 480 320" fill="none">
+              <rect x="70"  y="70" width="140" height="180" stroke="#e8e0d2" opacity=".3" />
+              <rect x="120" y="50" width="140" height="180" stroke="#e8e0d2" opacity=".5" />
+              <rect x="170" y="90" width="140" height="180" stroke="#c56a32" />
+              <path d="M190 130 H290 M190 150 H270 M190 170 H300 M190 190 H250" stroke="#e8e0d2" opacity=".4" />
+              <circle cx="360" cy="80"  r="3"   fill="#c56a32" />
+              <circle cx="390" cy="140" r="2"   fill="#e8e0d2" />
+              <circle cx="340" cy="200" r="2.5" fill="#e3924e" />
+              <circle cx="410" cy="230" r="2"   fill="#e8e0d2" />
+            </svg>
+            <span>Documents, retrieved.</span>
+          </div>
+          <div class="art art--fraud" data-art="fraud">
+            <svg viewBox="0 0 480 320" fill="none">
+              <path d="M40 240 L90 210 L140 220 L190 160 L240 180 L290 90 L340 130 L390 70 L440 100" stroke="#c4452d" stroke-width="1.4" />
+              <circle cx="290" cy="90"  r="7"   fill="#c4452d" />
+              <circle cx="90"  cy="210" r="3"   fill="#e8e0d2" opacity=".5" />
+              <circle cx="190" cy="160" r="3"   fill="#e8e0d2" opacity=".5" />
+              <circle cx="340" cy="130" r="3"   fill="#e8e0d2" opacity=".5" />
+              <circle cx="390" cy="70"  r="5"   stroke="#e3924e" />
+            </svg>
+            <span>284,807 transactions.</span>
+          </div>
+          <div class="art art--agri" data-art="agri">
+            <svg viewBox="0 0 480 320" fill="none">
+              <g stroke="#c9ae7c" opacity=".5">
+                <rect x="60"  y="50"  width="90"  height="70" />
+                <rect x="160" y="50"  width="110" height="70" />
+                <rect x="280" y="50"  width="80"  height="70" />
+                <rect x="370" y="50"  width="50"  height="70" />
+                <rect x="60"  y="130" width="130" height="90" />
+                <rect x="200" y="130" width="90"  height="90" />
+                <rect x="300" y="130" width="120" height="90" />
+                <rect x="60"  y="230" width="70"  height="50" />
+                <rect x="140" y="230" width="160" height="50" />
+                <rect x="310" y="230" width="110" height="50" />
+              </g>
+            </svg>
+            <span>Six datasets. One schema.</span>
+          </div>
+        </div>
+
+        <div class="work-list">
+          <!-- Man of Steel -->
+          <a
+            class="work-item"
+            href="https://man-of-steel-lime.vercel.app/mission-control"
+            target="_blank"
+            rel="noopener"
+            data-art="steel"
+            data-cursor="live"
+          >
+            <div class="work-item__thumb art art--steel" aria-hidden="true"></div>
+            <span class="work-item__index">01</span>
+            <div class="work-item__main">
+              <span class="work-item__eyebrow">Industrial Agent System</span>
+              <h3>MAN OF STEEL</h3>
+              <p>An industrial AI command center that turns manuals, sensor clues, and failure signals into maintenance decisions engineers can trust.</p>
+              <ul class="work-item__proof">
+                <li>HITL maintenance reports</li>
+                <li>Vector retrieval over manuals</li>
+                <li>Degraded mode without API keys</li>
+              </ul>
+            </div>
+            <div class="work-item__meta">
+              <span>Next.js · LangGraph · pgvector · XGBoost</span>
+              <span class="badge">Top 40 Nationally · Tata Steel AI 2026</span>
+            </div>
+            <span class="work-item__go">Live ↗</span>
+          </a>
+
+          <!-- RAGnarok -->
+          <a
+            class="work-item"
+            href="https://ragnarok-yn7t.onrender.com/ui"
+            target="_blank"
+            rel="noopener"
+            data-art="rag"
+            data-cursor="live"
+          >
+            <div class="work-item__thumb art art--rag" aria-hidden="true"></div>
+            <span class="work-item__index">02</span>
+            <div class="work-item__main">
+              <span class="work-item__eyebrow">Document Intelligence</span>
+              <h3>RAGnarok</h3>
+              <p>A document-intelligence engine that reads dense PDFs, retrieves the right evidence, and answers with backend-grade speed, auth, and traceability.</p>
+              <ul class="work-item__proof">
+                <li>JWT auth boundary</li>
+                <li>Cached retrieval path</li>
+                <li>Source-grounded answers</li>
+              </ul>
+            </div>
+            <div class="work-item__meta">
+              <span>FastAPI · PostgreSQL · Redis · OpenAI</span>
+              <span class="badge">Live prototype</span>
+            </div>
+            <span class="work-item__go">Live ↗</span>
+          </a>
+
+          <!-- Neural Fraud Sentinel -->
+          <a
+            class="work-item"
+            href="https://neural-fraud-sentinal.streamlit.app/"
+            target="_blank"
+            rel="noopener"
+            data-art="fraud"
+            data-cursor="live"
+          >
+            <div class="work-item__thumb art art--fraud" aria-hidden="true"></div>
+            <span class="work-item__index">03</span>
+            <div class="work-item__main">
+              <span class="work-item__eyebrow">Risk Detection Lab</span>
+              <h3>Neural Fraud Sentinel</h3>
+              <p>A fraud-risk cockpit trained on 284,807 real transactions, built to surface rare suspicious patterns before they disappear into the noise.</p>
+              <ul class="work-item__proof">
+                <li>Class imbalance handled</li>
+                <li>ROC-AUC model selection</li>
+                <li>Interactive risk scoring</li>
+              </ul>
+            </div>
+            <div class="work-item__meta">
+              <span>scikit-learn · XGBoost · Streamlit</span>
+              <span class="badge">Ensemble ML</span>
+            </div>
+            <span class="work-item__go">Live ↗</span>
+          </a>
+
+          <!-- Agriculture Yield -->
+          <a
+            class="work-item"
+            href="https://github.com/dhruv-kashyap47/agriculture-yield-prediction-system"
+            target="_blank"
+            rel="noopener"
+            data-art="agri"
+            data-cursor="code"
+          >
+            <div class="work-item__thumb art art--agri" aria-hidden="true"></div>
+            <span class="work-item__index">04</span>
+            <div class="work-item__main">
+              <span class="work-item__eyebrow">Data Engineering System</span>
+              <h3>Agriculture Yield</h3>
+              <p>A farm-data analytics pipeline that transforms scattered agricultural datasets into clean Snowflake intelligence for yield, profit, and planning.</p>
+              <ul class="work-item__proof">
+                <li>Star-schema analytics</li>
+                <li>RBAC-ready views</li>
+                <li>Windowed profitability metrics</li>
+              </ul>
+            </div>
+            <div class="work-item__meta">
+              <span>PySpark · Snowflake · Streamlit</span>
+              <span class="badge">Source</span>
+            </div>
+            <span class="work-item__go">GitHub ↗</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ── Experience ─────────────────────────────────────────── -->
+      <section class="experience" id="experience">
+        <div class="section-head">
+          <p class="idx">03 / Experience</p>
+          <p class="section-head__right">Tata Cummins · 2026</p>
+        </div>
+
+        <div class="exp">
+          <div class="exp__left">
+            <p class="exp__role">Software Engineering Intern</p>
+            <h2>CamTrace 360</h2>
+            <p class="exp__sub">Enterprise inspection &amp; traceability platform</p>
+            <p class="exp__stack">React · FastAPI · Oracle 19c · PL/SQL · Docker</p>
+          </div>
+          <div class="exp__right">
+            <p>
+              Prototyped and deployed a manufacturing pre-dispatch quality system, replacing manual tracking with role-based JWT APIs, QR routing, and photo evidence for full production traceability.
+            </p>
+            <ul>
+              <li>17-table Oracle 19c schema with 27 PL/SQL stored procedures</li>
+              <li>Real-time analytics dashboards for operations stakeholders</li>
+              <li>159+ automated tests across API, database, and integration layers</li>
+              <li>Docker deployment and complete technical documentation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric__num" data-count="17">0</span>
+            <span class="metric__label">Schema tables</span>
+          </div>
+          <div class="metric">
+            <span class="metric__num" data-count="27">0</span>
+            <span class="metric__label">Stored procedures</span>
+          </div>
+          <div class="metric">
+            <span class="metric__num" data-count="159" data-suffix="+">0</span>
+            <span class="metric__label">Automated tests</span>
+          </div>
+          <div class="metric">
+            <span class="metric__num" data-count="1">0</span>
+            <span class="metric__label">Shop-floor workflow, digitized</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Capabilities ───────────────────────────────────────── -->
+      <section class="stack" id="stack">
+        <div class="section-head">
+          <p class="idx">04 / Capabilities</p>
+          <p class="section-head__right">Tools I actually ship with</p>
+        </div>
+        <div class="stack__grid">
+          <article>
+            <h3>AI / GenAI &amp; Agents</h3>
+            <p>LangGraph, LangChain, OpenAI API, RAG pipelines, pgvector, multi-agent systems, LlamaIndex</p>
+          </article>
+          <article>
+            <h3>Languages</h3>
+            <p>Python, TypeScript, SQL, JavaScript, Java, PL/SQL</p>
+          </article>
+          <article>
+            <h3>Backend &amp; APIs</h3>
+            <p>FastAPI, Next.js, REST, JWT, WebSockets, gRPC, Pytest</p>
+          </article>
+          <article>
+            <h3>Databases</h3>
+            <p>PostgreSQL, Supabase, Oracle 19c, Redis, MongoDB, Snowflake</p>
+          </article>
+          <article>
+            <h3>Cloud &amp; DevOps</h3>
+            <p>Docker, AWS, Oracle Cloud Infrastructure, GitHub Actions, Vercel</p>
+          </article>
+          <article>
+            <h3>ML &amp; Data</h3>
+            <p>scikit-learn, XGBoost, SMOTE, PySpark, Pandas, Streamlit</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Recognition ────────────────────────────────────────── -->
+      <section class="recognition paper" id="recognition">
+        <div class="section-head">
+          <p class="idx">05 / Recognition</p>
+          <p class="section-head__right">Proof, not claims</p>
+        </div>
+        <ul class="recog">
+          <li>
+            <span class="recog__year">2026</span>
+            <div>
+              <h3>Top 40 nationally / Tata Steel AI Hackathon</h3>
+              <p>HackerEarth. Advanced to the final interview round with MAN OF STEEL, an agentic industrial maintenance platform.</p>
+            </div>
+          </li>
+          <li>
+            <span class="recog__year">2026</span>
+            <div>
+              <h3>National Finalist / AI for Bharat</h3>
+              <p>PanIIT Bangalore Summit. Recognized among top teams nationwide for an AI-driven solution.</p>
+            </div>
+          </li>
+          <li>
+            <span class="recog__year">2025</span>
+            <div>
+              <h3>Oracle Cloud Infrastructure AI Foundations Associate</h3>
+              <p>1Z0-1122-25. Certified on OCI AI services and foundations.</p>
+            </div>
+          </li>
+          <li>
+            <span class="recog__year">2020</span>
+            <div>
+              <h3>2nd Place / Teenpreneur, OJASS ALPHA</h3>
+              <p>NIT Jamshedpur. Early signal: building under a clock, in public.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── Contact ────────────────────────────────────────────── -->
+      <section class="contact" id="contact">
+        <p class="idx">06 / Contact</p>
+        <h2>
+          A hard problem.<br />
+          A system that has to <em>ship.</em>
+        </h2>
+        <a class="contact__mail magnetic" href="mailto:7468dhruv@gmail.com" data-cursor="mail">
+          7468dhruv@gmail.com
+        </a>
+        <div class="contact__row">
+          <a class="text-link" href="https://www.linkedin.com/in/realdhruvkashyap/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="text-link" href="https://github.com/dhruv-kashyap47/"           target="_blank" rel="noopener">GitHub</a>
+          <a class="text-link" href="assets/dhruv_kashyap_cv.pdf" download>CV (PDF)</a>
+          <span>Jamshedpur, India</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Dhruv Kashyap</span>
+      <span>Designed in the mill town. Built for the shop floor.</span>
+      <a href="#top" class="magnetic" data-cursor="top">Back to top ↑</a>
+    </footer>
+
+    <!-- CDN scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
