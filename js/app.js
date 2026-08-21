@@ -2,7 +2,7 @@
   document.documentElement.classList.add("js");
 
   /* ─── Feature detection ─────────────────────────────────────── */
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = false; // Force animations on all devices
   const touch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   if (touch) document.body.classList.add("touch");
 
