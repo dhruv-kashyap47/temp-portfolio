@@ -602,6 +602,24 @@
         });
 
         /* Experience */
+        gsap.from(".exp-plate", {
+          y: 26,
+          opacity: 0,
+          duration: 0.95,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".exp-plate", start: "top 88%" },
+        });
+
+        /* Seal stamps in with a little overshoot */
+        gsap.from(".exp-plate__seal", {
+          scale: 0.55,
+          opacity: 0,
+          rotation: -50,
+          duration: 1,
+          ease: "back.out(1.7)",
+          scrollTrigger: { trigger: ".exp-plate", start: "top 74%" },
+        });
+
         gsap.from(".exp__left > *", {
           y: 30,
           opacity: 0,
@@ -620,6 +638,15 @@
           scrollTrigger: { trigger: ".exp__right", start: "top 85%" },
         });
 
+        /* Schematic panel rises in; connectors keep their CSS flow */
+        fromNoTrans(".schem", {
+          y: 34,
+          opacity: 0,
+          duration: 1.05,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".schem", start: "top 85%" },
+        });
+
         /* Metrics */
         gsap.from(".metric", {
           y: 28,
@@ -629,6 +656,17 @@
           ease: "power3.out",
           scrollTrigger: { trigger: ".metrics", start: "top 85%" },
         });
+
+        /* Light the metric underlines once counted into view */
+        const metricsEl = document.querySelector(".metrics");
+        if (metricsEl) {
+          ScrollTrigger.create({
+            trigger: metricsEl,
+            start: "top 82%",
+            once: true,
+            onEnter: () => metricsEl.classList.add("is-lit"),
+          });
+        }
 
         /* Stack grid */
         fromNoTrans(".stack__grid article", {
